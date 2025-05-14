@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatMail - Messagerie API</title>
+    <title>CatMail - Messagerie</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
@@ -24,26 +24,20 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        .message-container {
-            background-color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px auto;
-            width: 80%;
-            text-align: left;
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1>🐾 Messagerie CatMail API 🐾</h1>
+        <h1>🐾 Envoyer un CatMail 🐾</h1>
         <p>Bienvenue, <span id="username"></span>@ahomine-off.github.io/catmail !</p>
     </header>
     <main>
-        <h2>✉️ Envoyer un CatMail :</h2>
         <form id="catmail-message">
             <label for="to">À :</label>
             <input type="email" id="to" placeholder="Destinataire (ex: exemple@gmail.com)" required>
+            
+            <label for="subject">Sujet :</label>
+            <input type="text" id="subject" placeholder="Sujet de ton CatMail" required>
             
             <label for="message">Message :</label>
             <textarea id="message" placeholder="Écris ton plus beau miaou ici..." required></textarea>
@@ -58,30 +52,12 @@
         document.getElementById("catmail-message").addEventListener("submit", function(event) {
             event.preventDefault();
             let toUser = document.getElementById("to").value.trim();
+            let subject = document.getElementById("subject").value.trim();
             let messageText = document.getElementById("message").value.trim();
 
             if (toUser && messageText) {
-                fetch("https://api.sendgrid.com/v3/mail/send", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer TA_CLE_API",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "personalizations": [{"to": [{"email": toUser}]}],
-                        "from": {"email": currentUser + "@ahomine-off.github.io/catmail"},
-                        "subject": "Miaou ! Un message de CatMail !",
-                        "content": [{"type": "text/plain", "value": messageText}]
-                    })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Miaou envoyé avec succès ! 🚀");
-                    } else {
-                        alert("Erreur d'envoi du CatMail. Vérifie ta clé API !");
-                    }
-                })
-                .catch(error => alert("Miaouuu, un problème est survenu ! 😼"));
+                let mailtoLink = `mailto:${toUser}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(messageText)}`;
+                window.location.href = mailtoLink;
             } else {
                 alert("Miaouuu ! Remplis bien tous les champs !");
             }
