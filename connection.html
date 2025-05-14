@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatMail - Connexion</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #FCE4EC;
+            text-align: center;
+        }
+        header {
+            background-color: #FF4081;
+            padding: 20px;
+            color: white;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #FF4081;
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🐾 Connecte-toi à CatMail ! 🐾</h1>
+    </header>
+    <main>
+        <form id="catmail-login">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" required>
+            
+            <button type="submit">Se connecter 🚀</button>
+        </form>
+        <p id="login-message" style="display:none; color:green;"></p>
+    </main>
+    <script>
+        document.getElementById("catmail-login").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            
+            // Vérification avec les données stockées
+            if (username === localStorage.getItem("catmailUser") && password === localStorage.getItem("catmailPass")) {
+                document.getElementById("login-message").innerText = "Connexion réussie ! Miaouuu !";
+                document.getElementById("login-message").style.display = "block";
+                setTimeout(() => window.location.href = "messagerie.html", 2000); // Redirection
+            } else {
+                alert("Miaou ! Identifiants incorrects !");
+            }
+        });
+    </script>
+</body>
+</html>
