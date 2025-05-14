@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatMail - Inscription</title>
+    <title>CatMail - Connexion</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
@@ -28,38 +28,32 @@
 </head>
 <body>
     <header>
-        <h1>🐾 Crée ton adresse CatMail ! 🐾</h1>
+        <h1>🐾 Connecte-toi à CatMail ! 🐾</h1>
     </header>
     <main>
-        <form id="catmail-signup">
+        <form id="catmail-login">
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" required>
-            <p>@ahomine-off.github.io/catmail</p>
             
             <label for="password">Mot de passe :</label>
             <input type="password" id="password" required>
             
-            <button type="submit">Créer mon CatMail 📩</button>
+            <button type="submit">Se connecter 🚀</button>
         </form>
-        <p id="confirmation-message" style="display:none; color:green;"></p>
+        <p id="login-message" style="display:none; color:green;"></p>
     </main>
     <script>
-        document.getElementById("catmail-signup").addEventListener("submit", function(event) {
+        document.getElementById("catmail-login").addEventListener("submit", function(event) {
             event.preventDefault();
             let username = document.getElementById("username").value.trim();
             let password = document.getElementById("password").value.trim();
-
-            if (username && password) {
-                localStorage.setItem("catmailUser", username);
-                localStorage.setItem("catmailPass", password);
-
-                document.getElementById("confirmation-message").innerText =
-                    "Miaou ! Ton adresse " + username + "@ahomine-off.github.io/catmail a été créée ! 🚀";
-                document.getElementById("confirmation-message").style.display = "block";
-
-                setTimeout(() => window.location.href = "connexion.html", 2000);
+            
+            if (username === localStorage.getItem("catmailUser") && password === localStorage.getItem("catmailPass")) {
+                document.getElementById("login-message").innerText = "Connexion réussie ! Miaouuu !";
+                document.getElementById("login-message").style.display = "block";
+                setTimeout(() => window.location.href = "messagerie.html", 2000);
             } else {
-                alert("Miaouuu ! Remplis bien tous les champs !");
+                alert("Miaou ! Identifiants incorrects !");
             }
         });
     </script>
