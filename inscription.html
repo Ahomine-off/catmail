@@ -50,13 +50,20 @@
             let password = document.getElementById("password").value.trim();
 
             if (username && password) {
+                // Enregistrement des valeurs dans localStorage
                 localStorage.setItem("catmailUser", username);
                 localStorage.setItem("catmailPass", password);
 
+                // Vérification en console
+                console.log("Utilisateur enregistré :", localStorage.getItem("catmailUser"));
+                console.log("Mot de passe enregistré :", localStorage.getItem("catmailPass"));
+
+                // Confirmation à l'écran
                 document.getElementById("confirmation-message").innerText =
                     "Miaou ! Ton adresse " + username + "@ahomine-off.github.io/catmail a été créée ! 🚀";
                 document.getElementById("confirmation-message").style.display = "block";
 
+                // Redirection vers la connexion après 2 sec
                 setTimeout(() => window.location.href = "connexion.html", 2000);
             } else {
                 alert("Miaouuu ! Remplis bien tous les champs !");
