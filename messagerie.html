@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatMail - Messagerie</title>
+    <title>CatMail - Messagerie améliorée</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
@@ -24,14 +24,26 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .message-container {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px auto;
+            width: 80%;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>🐾 Envoyer un CatMail 🐾</h1>
+        <h1>🐾 CatMail - Nouvelle Messagerie 🐾</h1>
         <p>Bienvenue, <span id="username"></span>@ahomine-off.github.io/catmail !</p>
     </header>
     <main>
+        <h2>📩 Messages reçus :</h2>
+        <div id="messages"></div>
+
+        <h2>✉️ Envoyer un CatMail :</h2>
         <form id="catmail-message">
             <label for="to">À :</label>
             <input type="email" id="to" placeholder="Destinataire (ex: exemple@gmail.com)" required>
@@ -49,6 +61,23 @@
         let currentUser = localStorage.getItem("catmailUser") || "Chaton";
         document.getElementById("username").innerText = currentUser + "@ahomine-off.github.io/catmail";
 
+        function afficherMessages() {
+            let messages = JSON.parse(localStorage.getItem("catmailMessages")) || [];
+            let messagesDiv = document.getElementById("messages");
+            messagesDiv.innerHTML = "";
+
+            messages.forEach(msg => {
+                if (msg.to === currentUser) {
+                    let messageBlock = document.createElement("div");
+                    messageBlock.className = "message-container";
+                    messageBlock.innerHTML = `<strong>De : ${msg.from}</strong><br>${msg.text}`;
+                    messagesDiv.appendChild(messageBlock);
+                }
+            });
+        }
+
+        afficherMessages();
+
         document.getElementById("catmail-message").addEventListener("submit", function(event) {
             event.preventDefault();
             let toUser = document.getElementById("to").value.trim();
@@ -56,8 +85,12 @@
             let messageText = document.getElementById("message").value.trim();
 
             if (toUser && messageText) {
-                let mailtoLink = `mailto:${toUser}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(messageText)}`;
-                window.location.href = mailtoLink;
+                let messages = JSON.parse(localStorage.getItem("catmailMessages")) || [];
+                messages.push({ from: currentUser, to: toUser, subject: subject, text: messageText });
+                localStorage.setItem("catmailMessages", JSON.stringify(messages));
+
+                alert("Miaou envoyé avec succès ! 🚀");
+                afficherMessages();
             } else {
                 alert("Miaouuu ! Remplis bien tous les champs !");
             }
