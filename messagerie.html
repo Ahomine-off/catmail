@@ -55,8 +55,9 @@
         </form>
     </main>
     <script>
-        // Afficher le nom de l'utilisateur connecté
-        document.getElementById("username").innerText = localStorage.getItem("catmailUser") || "Inconnu";
+        // Afficher l'adresse CatMail complète
+        let currentUser = localStorage.getItem("catmailUser") || "Inconnu";
+        document.getElementById("username").innerText = currentUser + "@ahomine-off.github.io/catmail";
 
         // Charger les messages stockés
         function afficherMessages() {
@@ -65,10 +66,12 @@
             messagesDiv.innerHTML = "";
 
             messages.forEach(msg => {
-                let messageBlock = document.createElement("div");
-                messageBlock.className = "message-container";
-                messageBlock.innerHTML = `<strong>De : ${msg.from}</strong><br>${msg.text}`;
-                messagesDiv.appendChild(messageBlock);
+                if (msg.to === currentUser) { // Filtrer seulement les messages destinés à l'utilisateur
+                    let messageBlock = document.createElement("div");
+                    messageBlock.className = "message-container";
+                    messageBlock.innerHTML = `<strong>De : ${msg.from}</strong><br>${msg.text}`;
+                    messagesDiv.appendChild(messageBlock);
+                }
             });
         }
 
@@ -76,7 +79,7 @@
 
         document.getElementById("catmail-message").addEventListener("submit", function(event) {
             event.preventDefault();
-            let fromUser = localStorage.getItem("catmailUser") || "Anonyme";
+            let fromUser = currentUser;
             let toUser = document.getElementById("to").value.trim();
             let messageText = document.getElementById("message").value.trim();
 
