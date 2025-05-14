@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatMail - Messagerie Féline</title>
+    <title>CatMail - Créer son adresse féline</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
@@ -29,21 +29,37 @@
 <body>
     <header>
         <h1>🐾 Bienvenue sur CatMail 🐾</h1>
-        <p>La messagerie ultime pour les chats !</p>
+        <p>Crée ton adresse CatMail et rejoins l'univers félin !</p>
     </header>
     <main>
-        <form id="catmail-form">
-            <label for="to">À :</label>
-            <input type="text" id="to" placeholder="miaou@catmail.croquettes">
-            <label for="message">Message :</label>
-            <textarea id="message" placeholder="Écris ton plus beau miaou ici..."></textarea>
-            <button type="submit">Envoyer un Miaou 📩</button>
+        <form id="catmail-signup">
+            <label for="username">Choisis ton nom d'utilisateur :</label>
+            <input type="text" id="username" placeholder="Ex: SuperChaton">
+            
+            <p>@catmail.croquettes</p>
+            
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" placeholder="••••••••">
+            
+            <label for="avatar">Choisis ton avatar :</label>
+            <select id="avatar">
+                <option>😺 Chat joueur</option>
+                <option>🐈 Chat sérieux</option>
+                <option>🐾 Chat explorateur</option>
+                <option>😼 Chat malin</option>
+            </select>
+            
+            <button type="submit">Créer mon adresse CatMail 📩</button>
         </form>
+        <p id="confirmation-message" style="display:none; color:green;"></p>
     </main>
     <script>
-        document.getElementById("catmail-form").addEventListener("submit", function(event) {
+        document.getElementById("catmail-signup").addEventListener("submit", function(event) {
             event.preventDefault();
-            alert("Miaou envoyé avec succès ! 🚀");
+            let username = document.getElementById("username").value;
+            document.getElementById("confirmation-message").innerText = 
+                "Miaouuu ! Ton adresse " + username + "@catmail.croquettes a été créée ! 🚀";
+            document.getElementById("confirmation-message").style.display = "block";
         });
     </script>
 </body>
