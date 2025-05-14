@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatMail - Messagerie Féline</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #FCE4EC;
+            text-align: center;
+        }
+        header {
+            background-color: #FF4081;
+            padding: 20px;
+            color: white;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #FF4081;
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🐾 Bienvenue sur CatMail 🐾</h1>
+        <p>La messagerie ultime pour les chats !</p>
+    </header>
+    <main>
+        <form id="catmail-form">
+            <label for="to">À :</label>
+            <input type="text" id="to" placeholder="miaou@catmail.croquettes">
+            <label for="message">Message :</label>
+            <textarea id="message" placeholder="Écris ton plus beau miaou ici..."></textarea>
+            <button type="submit">Envoyer un Miaou 📩</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById("catmail-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Miaou envoyé avec succès ! 🚀");
+        });
+    </script>
+</body>
+</html>
