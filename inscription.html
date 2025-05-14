@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatMail - Créer son adresse féline</title>
+    <title>CatMail - Inscription</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
@@ -28,28 +28,18 @@
 </head>
 <body>
     <header>
-        <h1>🐾 Bienvenue sur CatMail 🐾</h1>
-        <p>Crée ton adresse CatMail et rejoins l'univers félin !</p>
+        <h1>🐾 Crée ton adresse CatMail ! 🐾</h1>
     </header>
     <main>
         <form id="catmail-signup">
-            <label for="username">Choisis ton nom d'utilisateur :</label>
-            <input type="text" id="username" placeholder="Ex: SuperChaton">
-            
-            <p>@catmail.croquettes</p>
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" required>
+            <p>@ahomine-off.github.io/catmail</p>
             
             <label for="password">Mot de passe :</label>
-            <input type="password" id="password" placeholder="••••••••">
+            <input type="password" id="password" required>
             
-            <label for="avatar">Choisis ton avatar :</label>
-            <select id="avatar">
-                <option>😺 Chat joueur</option>
-                <option>🐈 Chat sérieux</option>
-                <option>🐾 Chat explorateur</option>
-                <option>😼 Chat malin</option>
-            </select>
-            
-            <button type="submit">Créer mon adresse CatMail 📩</button>
+            <button type="submit">Créer mon CatMail 📩</button>
         </form>
         <p id="confirmation-message" style="display:none; color:green;"></p>
     </main>
@@ -57,9 +47,20 @@
         document.getElementById("catmail-signup").addEventListener("submit", function(event) {
             event.preventDefault();
             let username = document.getElementById("username").value;
-            document.getElementById("confirmation-message").innerText = 
-                "Miaouuu ! Ton adresse " + username + "@catmail.croquettes a été créée ! 🚀";
-            document.getElementById("confirmation-message").style.display = "block";
+            let password = document.getElementById("password").value;
+
+            if (username && password) {
+                localStorage.setItem("catmailUser", username);
+                localStorage.setItem("catmailPass", password);
+
+                document.getElementById("confirmation-message").innerText =
+                    "Miaou ! Ton adresse " + username + "@ahomine-off.github.io/catmail a été créée ! 🚀";
+                document.getElementById("confirmation-message").style.display = "block";
+
+                setTimeout(() => window.location.href = "connexion.html", 2000);
+            } else {
+                alert("Miaouuu ! Remplis bien tous les champs !");
+            }
         });
     </script>
 </body>

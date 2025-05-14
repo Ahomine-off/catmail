@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatMail - Connexion</title>
+    <title>CatMail - Messagerie</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
@@ -28,34 +28,26 @@
 </head>
 <body>
     <header>
-        <h1>🐾 Connecte-toi à CatMail ! 🐾</h1>
+        <h1>🐾 Messagerie CatMail 🐾</h1>
+        <p>Bienvenue, <span id="username"></span>@ahomine-off.github.io/catmail !</p>
     </header>
     <main>
-        <form id="catmail-login">
-            <label for="username">Nom d'utilisateur :</label>
-            <input type="text" id="username" required>
+        <form id="catmail-message">
+            <label for="to">À :</label>
+            <input type="text" id="to" placeholder="Destinataire">
             
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" required>
+            <label for="message">Message :</label>
+            <textarea id="message" placeholder="Écris ton plus beau miaou ici..."></textarea>
             
-            <button type="submit">Se connecter 🚀</button>
+            <button type="submit">Envoyer 📩</button>
         </form>
-        <p id="login-message" style="display:none; color:green;"></p>
     </main>
     <script>
-        document.getElementById("catmail-login").addEventListener("submit", function(event) {
+        document.getElementById("username").innerText = localStorage.getItem("catmailUser");
+
+        document.getElementById("catmail-message").addEventListener("submit", function(event) {
             event.preventDefault();
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
-            
-            // Vérification avec les données stockées
-            if (username === localStorage.getItem("catmailUser") && password === localStorage.getItem("catmailPass")) {
-                document.getElementById("login-message").innerText = "Connexion réussie ! Miaouuu !";
-                document.getElementById("login-message").style.display = "block";
-                setTimeout(() => window.location.href = "messagerie.html", 2000); // Redirection
-            } else {
-                alert("Miaou ! Identifiants incorrects !");
-            }
+            alert("Miaou envoyé avec succès ! 🚀");
         });
     </script>
 </body>
