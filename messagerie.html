@@ -24,6 +24,11 @@
 <p>Connecté en tant que : <strong id="user"></strong></p>
 
 <div class="box">
+    <input type="text" id="inviteUser" placeholder="Invite un utilisateur">
+    <button onclick="inviteUser()">Inviter</button>
+</div>
+
+<div class="box">
     <div class="chat" id="chat-box">
         <p><em>Les messages apparaîtront ici...</em></p>
     </div>
@@ -52,6 +57,14 @@
         if (message) {
             messageBox.innerHTML += `<p><strong>${user} :</strong> ${message}</p>`;
             document.getElementById("message").value = "";
+        }
+    }
+
+    function inviteUser() {
+        let invited = document.getElementById("inviteUser").value;
+        if (invited) {
+            alert(`${invited} a été invité à discuter !`);
+            document.getElementById("inviteUser").value = "";
         }
     }
 </script>
