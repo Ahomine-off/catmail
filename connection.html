@@ -2,66 +2,25 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion - CatMail</title>
+    <title>CatMail - Miaou Messenger</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #ffe6e6; color: #333; text-align: center; }
-        h1 { color: #ff4081; }
-        .box { padding: 20px; border-radius: 10px; background: white; width: 300px; margin: auto; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
-        input, button { display: block; width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: #ff4081; color: white; cursor: pointer; }
-        img { width: 80px; height: 80px; margin: 10px auto; border-radius: 50%; }
+        body { font-family: Arial, sans-serif; background-color: #ffe6e6; color: #333; margin: 0; }
+        header { background: #ff4081; padding: 15px; text-align: right; }
+        .nav-btn { text-decoration: none; padding: 10px 20px; background: white; color: #ff4081; border-radius: 5px; font-weight: bold; margin-left: 10px; }
+        h1 { text-align: center; color: #ff4081; margin-top: 50px; }
+        p { text-align: center; }
     </style>
 </head>
 <body>
 
-<h1>Connexion à CatMail 🐱📩</h1>
+<header>
+    <a href="inscription" class="nav-btn">S'inscrire</a>
+    <a href="connection" class="nav-btn">Se connecter</a>
+</header>
 
-<div class="box">
-    <img src="profile.png" alt="Icône Profil">
-    <input type="text" id="username" placeholder="Nom d'utilisateur">
-    <input type="password" id="password" placeholder="Mot de passe">
-    <button onclick="login()">Se connecter</button>
-</div>
+<h1>Miaouuuu ! Bienvenue sur CatMail 🐱📩</h1>
 
-<script>
-    function setCookie(name, value, days) {
-        let expires = "";
-        if (days) {
-            let date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + value + expires + "; path=/";
-    }
-
-    function getCookie(name) {
-        let cookies = document.cookie.split("; ");
-        for (let i = 0; i < cookies.length; i++) {
-            let parts = cookies[i].split("=");
-            if (parts[0] === name) {
-                return parts[1];
-            }
-        }
-        return "";
-    }
-
-    function login() {
-        let user = document.getElementById("username").value;
-        let pass = document.getElementById("password").value;
-        if (user && pass) {
-            setCookie("catmail_user", user, 7);
-            setCookie("catmail_pass", pass, 7);
-            alert("Connexion miaou réussie !");
-        } else {
-            alert("Veuillez remplir tous les champs !");
-        }
-    }
-
-    window.onload = function() {
-        document.getElementById("username").value = getCookie("catmail_user");
-        document.getElementById("password").value = getCookie("catmail_pass");
-    }
-</script>
+<p>🐾 Miaou-tchat sécurisé pour tous les chatons !</p>
 
 </body>
 </html>
