@@ -12,14 +12,40 @@
     </style>
 </head>
 <body>
-    <h1>Miaouuuu ! Inscris-toi sur CatMail 🐱📩</h1>
-    <div class="box">
-        <p>Crée ton compte et rejoins la communauté féline !</p>
-        <input type="text" placeholder="Nom d'utilisateur">
-        <input type="password" placeholder="Mot de passe">
-        <input type="password" placeholder="Confirme le mot de passe">
-        <button onclick="alert('Compte créé miaouuuu !')">Créer un compte</button>
-    </div>
-    <p>🐾 Rejoins CatMail et envoie tes messages ronronnants !</p>
+
+<h1>Inscris-toi sur CatMail 🐱📩</h1>
+
+<div class="box">
+    <input type="text" id="newUser" placeholder="Nom d'utilisateur">
+    <input type="password" id="newPass" placeholder="Mot de passe">
+    <input type="password" id="confirmPass" placeholder="Confirme le mot de passe">
+    <button onclick="register()">Créer un compte</button>
+</div>
+
+<script>
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            let date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    function register() {
+        let user = document.getElementById("newUser").value;
+        let pass = document.getElementById("newPass").value;
+        let confirm = document.getElementById("confirmPass").value;
+        if (user && pass && pass === confirm) {
+            setCookie("catmail_user", user, 7);
+            setCookie("catmail_pass", pass, 7);
+            alert("Inscription réussie ! Miaouuuu !");
+        } else {
+            alert("Erreur : vérifie tes infos !");
+        }
+    }
+</script>
+
 </body>
 </html>
