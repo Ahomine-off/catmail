@@ -51,18 +51,18 @@
     function login() {
         let user = document.getElementById("username").value;
         let pass = document.getElementById("password").value;
-        if (user && pass) {
-            setCookie("catmail_user", user, 7);
-            setCookie("catmail_pass", pass, 7);
+        let storedUser = getCookie("catmail_user");
+        let storedPass = getCookie("catmail_pass");
+
+        if (user === storedUser && pass === storedPass) {
             alert("Connexion miaou réussie !");
         } else {
-            alert("Veuillez remplir tous les champs !");
+            alert("Erreur : nom d’utilisateur ou mot de passe incorrect !");
         }
     }
 
     window.onload = function() {
         document.getElementById("username").value = getCookie("catmail_user");
-        document.getElementById("password").value = getCookie("catmail_pass");
     }
 </script>
 
