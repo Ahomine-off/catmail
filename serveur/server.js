@@ -7,35 +7,37 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client'))); // Sert les fichiers HTML/CSS/JS
 
+// 🔧 Sert les fichiers frontend depuis client/
+app.use(express.static(path.join(__dirname, '../client')));
+
+// 📂 Connexion à la base SQLite
 const db = new sqlite3.Database('./db.sqlite', (err) => {
-  if (err) console.error('🐾 Erreur DB:', err.message);
-  else console.log('📂 Base CatMail connectée');
+  if (err) console.error('❌ Erreur de base :', err.message);
+  else console.log('📂 Base CatMail connectée avec ronron');
 });
 
-// Table des CatMails
+// 📦 Création des tables
 db.run(`
   CREATE TABLE IF NOT EXISTS mails (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    sender TEXT,
-    recipient TEXT,
+    sender TEXT NOT NULL,
+    recipient TEXT NOT NULL,
     subject TEXT,
-    message TEXT,
-    timestamp TEXT
+    message TEXT NOT NULL,
+    timestamp TEXT NOT NULL
   )
 `);
 
-// Table des utilisateurs félins
 db.run(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    password TEXT
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
   )
 `);
 
-
+// 📤 Route d'envoi de CatMail
 app.post('/send', (req, res) => {
   const { sender, recipient, subject, message } = req.body;
   const timestamp = new Date().toISOString();
@@ -46,25 +48,26 @@ app.post('/send', (req, res) => {
 
   db.run(`INSERT INTO mails (sender, recipient, subject, message, timestamp)
           VALUES (?, ?, ?, ?, ?)`,
-          [sender, recipient, subject || '', message, timestamp],
-          err => {
-            if (err) {
-              console.error('Erreur envoi :', err.message);
-              return res.status(500).json({ error: "Échec de l'envoi 🐾💥" });
-            }
-            res.json({ success: true, message: "CatMail envoyé 🐱📬" });
-          });
+    [sender, recipient, subject || '', message, timestamp],
+    (err) => {
+      if (err) {
+        console.error('❌ Envoi échoué :', err.message);
+        return res.status(500).json({ error: "Échec de l'envoi 🐾" });
+      }
+      res.json({ success: true, message: "CatMail envoyé avec ronron 🎉" });
+    });
 });
 
+// 📥 Route pour consulter l'inbox
 app.get('/inbox/:user', (req, res) => {
   const user = req.params.user;
-  db.all(`SELECT * FROM mails WHERE recipient = ? ORDER BY timestamp DESC`,
-  (err, rows) => {
+
+  db.all(`SELECT * FROM mails WHERE recipient = ? ORDER BY timestamp DESC`,  (err, rows) => {
     if (err) {
-      console.error("Erreur dans la récupération de l'inbox 😿:", err.message);
+      console.error("Erreur lors de la récupération de l'inbox 😿:", err.message);
       return res.status(500).json({
         success: false,
-        error: "Impossible d'afficher la boîte féline pour cet utilisateur"
+        error: "Impossible d'afficher les CatMails pour cet utilisateur"
       });
     }
 
