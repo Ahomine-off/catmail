@@ -6,21 +6,22 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Middleware
+// 🔧 Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
-// Connexion à la base de données dans le dossier serveur/
-const db = new sqlite3.Database(path.join(__dirname, 'db.sqlite'), (err) => {
+// 📂 Connexion à la base SQLite dans le dossier serveur
+const dbPath = path.join(__dirname, 'db.sqlite');
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error("❌ Erreur de base :", err.message);
+    console.error('❌ Erreur de base :', err.message);
   } else {
-    console.log("📂 Base CatMail connectée avec ronron");
+    console.log('📂 Base CatMail connectée avec ronron');
   }
 });
 
-// Création des tables
+// 🧱 Création des tables
 db.run(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,7 +41,7 @@ db.run(`
   )
 `);
 
-// Route d'envoi de message
+// 📤 Route pour envoyer un message
 app.post('/send', (req, res) => {
   const { sender, recipient, subject, message } = req.body;
   const timestamp = new Date().toISOString();
@@ -54,7 +55,7 @@ app.post('/send', (req, res) => {
     [sender, recipient, subject || '', message, timestamp],
     (err) => {
       if (err) {
-        console.error('❌ Erreur enregistrement :', err.message);
+        console.error('❌ Enregistrement échoué :', err.message);
         return res.status(500).json({ error: "Échec de l'envoi 🐾" });
       }
       res.json({ success: true, message: "CatMail envoyé avec ronron 🎉" });
@@ -62,12 +63,12 @@ app.post('/send', (req, res) => {
   );
 });
 
-// Route de consultation de boîte de réception
+// 📥 Route pour consulter la boîte de réception (sans tenir compte de la casse)
 app.get('/inbox/:user', (req, res) => {
   const user = req.params.user;
 
   db.all(
-    `SELECT * FROM mails WHERE recipient = ? ORDER BY timestamp DESC`,
+    `SELECT * FROM mails WHERE recipient = ? COLLATE NOCASE ORDER BY timestamp DESC`,
     (err, rows) => {
       if (err) {
         console.error("❌ Erreur récupération inbox :", err.message);
@@ -85,7 +86,7 @@ app.get('/inbox/:user', (req, res) => {
   );
 });
 
-// Démarrage du serveur
+// 🚀 Démarrage du serveur CatMail
 app.listen(PORT, () => {
   console.log(`🐾 Serveur CatMail opérationnel sur http://localhost:${PORT}`);
 });
