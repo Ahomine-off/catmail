@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
 // 🐾 Connexion à la base de données
-const db = new sqlite3.Database('./db.sqlite', (err) => {
+const db = new sqlite3.Database('./servuer/db.sqlite', (err) => {
   if (err) {
     console.error("❌ Erreur de base :", err.message);
   } else {
