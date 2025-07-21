@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CatMail 🐾</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Bienvenue dans CatMail 🐱📬</h1>
+
+  <form id="sendMailForm">
+    <input type="text" placeholder="Expéditeur" name="from" required>
+    <input type="text" placeholder="Destinataire" name="to" required>
+    <input type="text" placeholder="Sujet" name="subject">
+    <textarea name="message" placeholder="Message félin..." required></textarea>
+    <button type="submit">Envoyer 🐾</button>
+  </form>
+
+  <div id="inbox"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

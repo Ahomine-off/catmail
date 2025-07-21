@@ -1,0 +1,43 @@
+body {
+  font-family: 'Comic Sans MS', cursive;
+  background-color: #f7f7fc;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #ff6f61;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+input, textarea {
+  margin: 5px 0;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+
+button {
+  background-color: #ff6f61;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e25b50;
+}
+
+#inbox {
+  margin-top: 30px;
+}
