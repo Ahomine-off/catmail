@@ -14,6 +14,7 @@ const db = new sqlite3.Database('./db.sqlite', (err) => {
   else console.log('📂 Base CatMail connectée');
 });
 
+// Table des CatMails
 db.run(`
   CREATE TABLE IF NOT EXISTS mails (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,6 +25,16 @@ db.run(`
     timestamp TEXT
   )
 `);
+
+// Table des utilisateurs félins
+db.run(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT
+  )
+`);
+
 
 app.post('/send', (req, res) => {
   const { sender, recipient, subject, message } = req.body;
